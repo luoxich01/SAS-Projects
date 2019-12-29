@@ -1,0 +1,10 @@
+* For the report and graph, please refer to Issues tab
+
+ods graphics on;
+title "Selected Park Types by Region";
+
+proc freq data=pg1.np_codelookup order=freq;
+	where Type in ("National Historic Site","National Monument","National Park");
+	tables Type*Region / nocol CROSSLIST 
+	plots=freqplot(orient=horizontal scale=percent groupby=row);
+run;
