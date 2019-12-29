@@ -1,0 +1,12 @@
+* For report and graph, please refer to Issues tab.
+
+/*
+1. Exclude rows where values for Precip are equal to 0.
+2. Analyze precipitation amounts grouped by Name and Year.
+3. Create only an output table, named rainstats, with columns for the N and SUM statistics.
+4. Name the columns RainDays and TotalRain, respectively.
+5. Keep only those rows that are the combination of Year and Name.
+*/
+
+
+
