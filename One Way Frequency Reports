@@ -1,3 +1,5 @@
+* For the report and graph, please refer to Issues tab. 
+
 ods graphics on;
 title "Categories of Reported Species";
 title2 "Everglades";
