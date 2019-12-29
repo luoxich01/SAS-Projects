@@ -1,5 +1,13 @@
 * For the graph and report, please refer to Issues tab.
 
+/*
+Generate a two-way frequency table for Type by Region.
+Exclude any park type that contains the word Other.
+The levels with the most rows should come first in the order.
+Suppress the display of column percentages.
+Use Park Types by Region as the report title.
+*/
+
 title "Park Types by Region";
 
 proc freq data=pg1.np_codelookup order=freq;
