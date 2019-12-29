@@ -1,0 +1,20 @@
+/* Export data as csv and excel file */
+
+/* assign macro variable */
+%let outpath=/folders/myfolders/EPG194/output;
+
+/* export data as csv file */
+proc export data=pg1.storm_final
+     outfile="&outpath/storm_final.csv"
+     dbms=csv replace;
+run; 
+
+/* export data as excel file */
+libname xllib xlsx "&outpath/storm_final.xlsx";
+
+data xllib.storm_final;
+	set pg1.storm_final;
+	drop Lat Lon Basin OceanCode;	
+run;
+
+LIBNAME xllib CLEAR; 
