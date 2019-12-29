@@ -1,0 +1,14 @@
+* For the report, please refer to Issues tab
+
+/*
+Suppress the printing of observation numbers, and display column labels.
+Display the columns in the following order: Name, Year, RainDays, and TotalRain.
+Label Name as Park Name, RainDays as Number of Days Raining, and TotalRain as Total Rain Amount (inches).
+Use Rain Statistics by Year and Park as the report title.
+*/
+
+proc print data=rainstats label noobs;
+	var Name Year RainDays TotalRain;
+	label Name='Park Name' RainDays='Number of Days Raining' 
+		TotalRain='Total Rain Amount (inches)';
+run;
