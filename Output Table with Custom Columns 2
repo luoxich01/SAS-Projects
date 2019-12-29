@@ -1,10 +1,9 @@
 * For the report, please refer to Issues tab
 
 /*
-Suppress the printing of observation numbers, and display column labels.
-Display the columns in the following order: Name, Year, RainDays, and TotalRain.
-Label Name as Park Name, RainDays as Number of Days Raining, and TotalRain as Total Rain Amount (inches).
-Use Rain Statistics by Year and Park as the report title.
+Keep Name, Year, RainDays, and TotalRain.
+Suppressing the display of column percentages, and use the CROSSLIST option to display the table.
+Add a frequency plot that groups the bars by the row variable, displays row percentages, and has a horizontal orientation. 
 */
 
 proc print data=rainstats label noobs;
