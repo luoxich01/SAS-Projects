@@ -1,0 +1,9 @@
+ods graphics on;
+title "Categories of Reported Species";
+title2 "Everglades";
+
+proc freq data=pg1.np_species order=freq;
+	where substr(Species_ID,1,4)="EVER" and Category ne "Vascular Plant";
+	tables Category / nocum plots=FREQPLOT;
+run;
+title;
