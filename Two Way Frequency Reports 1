@@ -1,0 +1,8 @@
+* For the graph and report, please refer to Issues tab.
+
+title "Park Types by Region";
+
+proc freq data=pg1.np_codelookup order=freq;
+	where Type ne "Other";
+	tables Type*Region / nocol nopercent;
+run;
