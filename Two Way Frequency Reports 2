@@ -1,5 +1,11 @@
 * For the report and graph, please refer to Issues tab
 
+/*
+Keep Name, Year, RainDays, and TotalRain.
+Suppressing the display of column percentages, and use the CROSSLIST option to display the table.
+Add a frequency plot that groups the bars by the row variable, displays row percentages, and has a horizontal orientation. 
+*/
+
 ods graphics on;
 title "Selected Park Types by Region";
 
