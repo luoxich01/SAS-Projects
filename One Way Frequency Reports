@@ -1,5 +1,12 @@
 * For the report and graph, please refer to Issues tab. 
 
+/*
+Use the TABLES statement to generate a frequency table for Category.
+Use the NOCUM option to suppress the cumulative columns.
+Use the ORDER=FREQ option in the PROC FREQ statement to sort the results by descending frequency.
+Use Categories of Reported Species as the report title.
+*/
+
 ods graphics on;
 title "Categories of Reported Species";
 title2 "Everglades";
