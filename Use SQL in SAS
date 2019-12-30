@@ -1,0 +1,74 @@
+/* extract data with SAS (in a traditional way) and SQL */
+
+title "PROC PRINT Output";
+proc print data=pg1.class_birthdate;
+	var Name Age Height Birthdate;
+	format Birthdate date9.;
+run;
+
+title "PROC SQL Output";
+proc sql;
+select Name, Age, Height*2.54 as HeightCM format=5.1, Birthdate format=date9.
+    from pg1.class_birthdate;
+quit;
+
+title;
+
+* =============================================================================================
+
+/* read and filter data with SQL */
+
+/*
+Complete the SQL query to display Event and Cost from pg1.storm_damage. Format the values of Cost as dollars.
+Add a new column named Season that extracts the year from Date.
+Add a WHERE clause to return rows where Cost is greater than 25 billion.
+Add an ORDER BY clause to arrange rows by descending Cost.
+*/
+
+title "Most Costly Storms";
+proc sql;
+*Add a SELECT statment;
+select Event, Cost format=dollar20., year(Date) as Season
+from pg1.storm_damage
+where Cost>25
+order by Cost desc;
+quit;
+
+* =============================================================================================
+
+/* create and delete tables with SQL */
+
+/*
+Add an additional query in the same PROC SQL step to generate a report listing all columns for the first 10 storms in the top_damage table.
+Add a TITLE statement before the second query to display the following text: Top 10 Storms by Damage Cost.
+*/
+
+proc sql;
+create table top_damage as
+select Event, 
+       Date format=monyy7.,
+       Cost format=dollar16.
+       from pg1.storm_damage
+       order by Cost desc;
+title "Top 10 Storms by Damage Cost";
+    select *
+        from top_damage(obs=10);
+quit;
+
+
+/* delete tables */
+
+proc sql;
+    drop table work.myclass;
+quit;
+
+* =============================================================================================
+
+/* join tables with SQL */
+
+proc sql;
+select Season, Name, s.Basin, BasinName, MaxWindMPH 
+    from pg1.storm_summary as s inner join pg1.storm_basincodes as b
+		on  s.Basin=b.Basin
+    order by Season desc, Name;
+quit;
