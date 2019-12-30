@@ -82,6 +82,26 @@ ods rtf close;
 options date;
 
 
+* ======================================================================
+
+/* export report in PDF file */
+
+ods pdf file="&outpath/pressure.pptx";
+
+title "Minimum Pressure Statistics by Basin";
+ods noproctitle;
+proc means data=pg1.storm_final mean median min maxdec=0;
+    class BasinName;
+    var MinPressure;
+run;
+
+title "Correlation of Minimum Pressure and Maximum Wind";
+proc sgscatter data=pg1.storm_final;
+	plot minpressure*maxwindmph;
+run;
+title;  
+
+ods pdf close;
 
 
 
