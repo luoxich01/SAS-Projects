@@ -1,0 +1,17 @@
+data camping lodging;
+	set pg2.np_2017;
+	CampTotal=sum(CampingOther, CampingTent, CampingRV, CampingBackcountry);
+	format CampTotal comma20.;
+
+	if CampTotal>0 then
+		do;
+			keep CampingOther CampingTent CampingRV CampingBackcountry;
+			output camping;
+		end;
+
+	if LodgingOther>0 then
+		do;
+			keep ParkName Month DayVisits LodgingOther;
+			output lodging;
+		end;
+run;
