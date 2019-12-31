@@ -1,0 +1,17 @@
+/*
+Create a new column named Date that is the date portion of the DateTime column, and a column named MonthEnd that is the last day of the month.
+Apply a format to Date and MonthEnd so the values have this appearance: 01JAN2018.
+Include only the columns StationName, MonthlyRainTotal, Date, and MonthEnd in the output table.
+*/
+
+data rainsummary;
+	set pg2.np_hourlyrain;
+	by Month;
+	if first.Month=1 then MonthlyRainTotal=0;
+	MonthlyRainTotal+Rain;
+	if last.Month=1;
+	Date=datepart(DateTime);
+	MonthEnd=intnx('month',Date,0,'end');
+	format Date MonthEnd date9.;
+	keep StationName MonthlyRainTotal Date MonthEnd;
+run;
