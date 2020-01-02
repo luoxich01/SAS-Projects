@@ -1,0 +1,12 @@
+/*
+Add to the RENAME= option to rename the input column Date as CharDate.
+Add an assignment statement to create a numeric column Date from the character column CharDate. The values of CharDate are stored as 01JAN2018.
+Modify the DROP statement to eliminate all columns that begin with Char from the output table.
+*/
+
+data work.stocks2;
+    set pg2.stocks2(rename=(Volume=CharVolume Date=CharDate));
+    Volume=input(CharVolume,comma12.);
+    Date=input(CharDate,date9.);
+    drop Char:;
+run;
