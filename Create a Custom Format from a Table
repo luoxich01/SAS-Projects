@@ -1,0 +1,26 @@
+/*
+Use the RENAME= data set option in the SET statement to rename the ParkCode column to Start and the Type column to Label.
+Add a RETAIN statement before the SET statement to create the FmtName column with a value of $TypeFmt (no period at the end).
+In the PROC FORMAT statement, add the CNTLIN= option to build a format from the type_lookup table.
+In the PROC MEANS step, apply the $TypeFmt format to the ParkCode column.
+*/
+
+data type_lookup;
+	set pg2.np_codeLookup(rename=(ParkCode=Start Type=Label));
+	retain FmtName "$TypeFmt";
+	keep Start Label FmtName;
+run;
+
+proc format CNTLIN=work.type_lookup;
+run;
+
+title 'Traffic Statistics';
+
+proc means data=pg2.np_monthlyTraffic maxdec=0 mean sum nonobs;
+	var Count;
+	class ParkCode Month;
+	label ParkCode='Name';
+	FORMAT ParkCode $TypeFmt.;
+run;
+
+title;
