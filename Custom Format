@@ -1,0 +1,27 @@
+/*
+In the PROC FORMAT step, create a format named HRANGE that has the following criteria:
+A range of 50 – 57 has a formatted value of Below Average.
+A range of 58 – 60 has a formatted value of Average.
+A range of 61 – 70 has a formatted value of Above Average.
+
+In the PROC PRINT step, format Height with the HRANGE format.
+*/
+
+proc format;
+    value $genfmt 'F'='Female'
+                  'M'='Male';
+    *modify the following VALUE statement;
+    value HRANGE 50-57 = 'Below Average'
+                      58-60 = 'Average'
+                      61-70 = 'Above Average' ;
+run;
+
+proc print data=pg2.class_birthdate noobs;
+    where Age=12;
+    var Name Gender Height;
+    *add to the following FORMAT statement;
+    format Gender $genfmt.;
+    format Height HRANGE.;
+run;
+
+
