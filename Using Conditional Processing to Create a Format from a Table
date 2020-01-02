@@ -1,0 +1,12 @@
+/*
+In first DATA step, create the np_lookup table that will be used to build a custom format.
+Add a RETAIN statement to create the FmtName column with a value of $RegLbl.
+Rename the ParkCode column to Start.
+Add conditional statements to create the Label column. The Label column is equal to the Region column unless the region is missing. In that case, the Label column has the value Unknown.
+Add a statement to include the Start, Label, and FmtName columns in the output data.
+
+Modify the PROC FORMAT step to read in the np_lookup table.
+In the second DATA step, create a new column named Region. Use the PUT function to create the new column by applying the $RegLbl format to the ParkCode column.
+*/
+
+
