@@ -1,0 +1,7 @@
+/* using CALL MISSING to assign missing values for the two students' quiz scores */
+
+data quiz_report;
+    set pg2.class_quiz;
+    if Name in("Barbara", "James") 
+        then call missing(of Q:);
+run;
