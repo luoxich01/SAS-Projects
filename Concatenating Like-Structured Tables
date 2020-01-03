@@ -1,0 +1,20 @@
+/*
+Complete the SET statement to concatenate the pg2.np_2015 and pg2.np_2016 tables to create a new table, np_combine.
+Subset the output data to include only rows where Month is 6, 7, or 8.
+Create a new column named CampTotal that is the sum of CampingOther, CampingTent, CampingRV, and CampingBackcountry. 
+Format the new column with commas.
+Write a PROC SORT step to order the np_combine table by ParkCode.
+*/
+
+data work.np_combine;
+    set pg2.np_2015 pg2.np_2016;
+    CampTotal=sum(of Camping:);
+    where Month in(6, 7, 8);
+    format CampTotal comma15.;
+    drop Camping:;
+run;
+
+proc sort data=work.np_combine;
+	by ParkCode;
+run;
+
