@@ -1,0 +1,24 @@
+/*
+Add an iterative DO loop around the sum statement for Invest. The DO statement should create the column Year with values ranging from 1 to 6.
+Add an OUTPUT statement to write the value of the retirement account for each year.
+
+Add a DO statement that creates the column Quarter with values ranging from 1 to 4.
+Add the following sum statement to add the accrued interest to the Invest value: Invest+(Invest*(.075/4));
+*/
+
+data retirement;
+    do Year = 1 to 6;
+       Invest+10000;
+       do Quarter = 1 to 4;
+          Invest+(Invest*(.075/4));
+       end;
+       output;
+    end;
+    drop Quarter;
+run;
+
+title1 'Retirement Account Balance per Year';
+proc print data=retirement noobs;
+    format Invest dollar12.2;
+run;
+title;
