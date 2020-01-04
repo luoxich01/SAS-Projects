@@ -1,0 +1,31 @@
+/*
+Determine the name of the common column in the pg2.np_codelookup and pg2.np_2016 tables.
+Write a new program to sort the data in both tables by the matching column.
+Using a DATA step, merge the pg2.np_codelookup and pg2.np_2016 tables to create two new tables named work.parkStats and work.parkOther.
+The work.parkStats table should contain only ParkCode values that are in the np_2016 table, and it should only the ParkCode, ParkName, Year, Month, and DayVisits columns.
+The work.parkOther table should contain all other rows, and it should include only the ParkCode and ParkName columns.
+*/
+
+proc sort data=pg2.np_codelookup out=work.sortedCodes;
+	by ParkCode;
+run;
+
+proc sort data=pg2.np_2016 out=work.sorted_code_2016;
+	by ParkCode;
+run;
+
+data work.parkStats work.parkOther;
+	merge work.sortedCodes work.sorted_code_2016(in=in2016);
+	by ParkCode;
+
+	if in2016=1 then
+		do;
+			keep ParkCode ParkName Year Month DayVisits;
+			output work.parkStats;
+		end;
+	else if in2016=0 then
+		do;
+			keep ParkCode ParkName;
+			output work.parkOther;
+		end;
+run;
