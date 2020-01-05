@@ -1,0 +1,29 @@
+/*
+Examine the pg2.np_2016camping table to determine the three unique values of the CampType column.
+
+Use IF-THEN/ELSE statements to assign CampCount to the Tent, RV, and Backcountry columns based on the value of CampType.
+Use the RETAIN statement to hold the values of ParkName, Tent, RV, and Backcountry in the PDV each time that the PDV reinitializes.
+Use the BY statement to group the data by ParkName.
+Add a subsetting IF statement to output the last row for each value of ParkName.
+Keep the ParkName, Tent, RV, and Backcountry columns.
+Format Tent, RV, and Backcountry with commas.
+Submit the program and confirm that a column exists for each unique camping location (Tent, RV, and Backcountry).
+*/
+
+data camping_wide;
+	set pg2.np_2016camping;
+	by ParkName;
+
+	if CampType='Tent' then
+		Tent=CampCount;
+	else if CampType='RV' then
+		RV=CampCount;
+	else if CampType='Backcountry' then
+		Backcountry=CampCount;
+	retain Tent RV Backcountry;
+
+	if last.ParkName=1;
+	keep ParkName Tent RV Backcountry;
+	format Tent RV Backcountry comma20.;
+run;
+
