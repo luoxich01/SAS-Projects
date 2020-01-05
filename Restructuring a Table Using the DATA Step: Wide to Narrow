@@ -1,0 +1,23 @@
+/*
+Submit the PROC PRINT step and examine the results. Note that the Tent, RV, and Backcountry columns contain visitor counts.
+
+In the DATA step, create a new column named CampType with the values Tent, RV, and Backcountry, and another new column named CampCount with the numeric counts.
+The DATA step includes statements to output a row for CampType='Tent'. Modify the DATA step to output rows for RV and Backcountry.
+Add a LENGTH statement to ensure that the values of the CampType column are not truncated.
+Submit the DATA step and examine the output data. Confirm that each ParkName value has three rows corresponding to the Tent, RV, and Backcountry visitor counts.
+*/
+
+data work.camping_narrow(drop=Tent RV Backcountry);
+    length CampType $11;
+    set pg2.np_2017Camping;
+    format CampCount comma12.;
+    CampType='Tent';
+    CampCount=Tent;
+    output;
+    CampType='RV';
+    CampCount=RV;
+    output;
+    CampType='Backcountry';
+    CampCount=Backcountry;
+    output;
+run;
