@@ -1,0 +1,36 @@
+/*
+Add a conditional DO loop around the assignment statement where IncrDayVisits is being increased by 6%.
+The DO UNTIL statement should execute until the value of IncrDayVisits exceeds 100,000.
+Write a row to the output table for each iteration of the DO loop.
+
+Before the DO loop, add an assignment statement to set the Year to 0.
+Within the DO loop, add a sum statement to add 1 to the value of Year.
+Add Year to the KEEP statement so we know how many years it takes to reach the visitor goal.
+*/
+
+
+data IncreaseDayVisits;  
+    set pg2.np_summary;
+    where Reg='NE' and DayVisits<100000;
+    IncrDayVisits=DayVisits;
+    Year=0;
+    do until (IncrDayVisits>100000);
+       Year+1;
+       IncrDayVisits=IncrDayVisits*1.06;
+       output;
+    end;
+    format IncrDayVisits comma12.;
+    keep ParkName DayVisits IncrDayVisits Year;
+run;
+
+proc sort data=IncreaseDayVisits;
+    by ParkName;
+run;
+
+title1 'Years Until Northeast National Monuments Exceed 100,000 Visitors';
+title2 'Based on Annual Increase of 6%';
+proc print data=IncreaseDayVisits label;
+    label DayVisits='Current Day Visitors'
+          IncrDayVisits='Increased Day Visitors';
+run;
+title;
