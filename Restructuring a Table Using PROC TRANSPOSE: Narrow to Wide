@@ -1,0 +1,11 @@
+/*
+Examine the np_2016camping table. Notice that the table contains one row for each location type (Tent, RV, and Backcountry) by ParkName. 
+Open a new program window and write a PROC TRANSPOSE step to create a wide table named work.camping2016_t.
+Include only the ParkName column and individual columns for the values of CampType.
+*/
+
+PROC TRANSPOSE data=pg2.np_2016camping out=work.camping2016_t(drop=_NAME_);
+	by ParkName;
+	var CampCount;
+	id CampType;
+run;
