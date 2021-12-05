@@ -1,0 +1,26 @@
+# Loop through a, b, c level and add the "all" summary for each combination of vars
+
+%macarray(vars, v1 v2 v3);
+
+proc sql;
+  create table smry.summary_table as
+  select
+    %do v1 = 0 %to 1; %do v2 = 0 %to 1; %do v3 = 0 %to 1;
+      distinct "&state." as state
+      %do var_v = 1 %to &nvars.;
+        %if &&v&var_v.. = 1 %then %do; , "_ALL_" as &&vars&var_v.. %end;
+        %else %do; , &&vars&var_v.. %end;
+      %end;,
+      sum(n1) as n1,
+      sum(n2) as n2,
+      calculated n1/calculated n2 as pct format = percent8.2
+      from temp.dataset
+      group by state
+      %do var_v = 1 %to &nvars.;
+        %if &&v&var_v.. = 0 %then %do; , &&vars&var_v.. %end;
+      %end;
+      %if &v1.&v2.&v3. ^= 111 %then %do;
+        union all corresponding select 
+      %end;
+   %end;%end;%end;;
+quit;
